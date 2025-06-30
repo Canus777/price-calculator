@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每坪每才價格計算器</title>
+  <style>
+    body { max-width: 480px; margin: 2em auto; font-family: sans-serif; }
+    input, button { width: 100%; padding: 8px; margin: 4px 0; }
+    pre { background:#f4f4f4; padding:8px; }
+  </style>
+</head>
+<body>
+  <h1>每坪每才價格計算器</h1>
+  <label>長度 (cm)<br><input id="length" type="number" placeholder="輸入長度"></label>
+  <label>寬度 (cm)<br><input id="width" type="number" placeholder="輸入寬度"></label>
+  <label>總金額 (NTD)<br><input id="price" type="number" placeholder="輸入金額"></label>
+  <button onclick="calculate()">計算</button>
+  <pre id="result"></pre>
+  <script>
+    function calculate() {
+      const len   = Number(document.getElementById('length').value);
+      const wid   = Number(document.getElementById('width').value);
+      const price = Number(document.getElementById('price').value);
+      const areaCm2 = len * wid;
+      const areaM2  = areaCm2 / 10000;
+      const areaPing= areaCm2 / 30250;
+      const areaCai = areaCm2 / 900;
+      const perPing = areaPing>0 ? price/areaPing : 0;
+      const perCai  = areaCai>0  ? price/areaCai  : 0;
+      document.getElementById('result').innerText =
+        `總面積: ${areaM2.toFixed(2)} m²` + '\n' +
+        `總坪數: ${areaPing.toFixed(2)} 坪` + '\n' +
+        `總才數: ${areaCai.toFixed(2)} 才` + '\n' +
+        `每坪單價: ${perPing.toFixed(0)} NTD` + '\n' +
+        `每才單價: ${perCai.toFixed(0)} NTD`;
+    }
+  </script>
+</body>
+</html>
